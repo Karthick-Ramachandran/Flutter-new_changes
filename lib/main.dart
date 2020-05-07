@@ -18,6 +18,8 @@ class HelloYou extends StatefulWidget {
 
 class _HelloYoustate extends State<HelloYou> {
   String name = '';
+  final _currencies = ['Pounds', 'euro', 'dollars'];
+  String _cure = 'pounds';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,10 +38,28 @@ class _HelloYoustate extends State<HelloYou> {
                 });
               },
             ),
+            DropdownButton<String>(
+              items: _currencies.map<DropdownMenuItem<String>>((String e) {
+                return DropdownMenuItem<String>(
+                  child: Text(e),
+                  value: e,
+                );
+              }).toList(),
+              value: _cure,
+              onChanged: (String value) {
+                _onchange(value);
+              },
+            ),
             Text('Hello ' + name + ' !')
           ],
         ),
       ),
     );
+  }
+
+  _onchange(String value) {
+    setState(() {
+      this._cure = value;
+    });
   }
 }
